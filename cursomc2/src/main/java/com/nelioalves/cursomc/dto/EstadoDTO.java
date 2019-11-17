@@ -4,27 +4,20 @@ import java.io.Serializable;
 
 import com.nelioalves.cursomc.domain.Estado;
 
-public class EstadoDTO implements Serializable{
+public class EstadoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 	private String nome;
-
+	
 	public EstadoDTO() {
-
 	}
 
-	public EstadoDTO(Integer id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
+	public EstadoDTO(Estado obj) {
+		id = obj.getId();
+		nome = obj.getNome();
 	}
-
-	public EstadoDTO(Estado estado) {
-		super();
-		this.id = estado.getId();
-		this.nome = estado.getNome();
-	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -40,6 +33,4 @@ public class EstadoDTO implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-
 }

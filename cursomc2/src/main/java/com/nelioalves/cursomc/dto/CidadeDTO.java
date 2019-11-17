@@ -6,25 +6,18 @@ import com.nelioalves.cursomc.domain.Cidade;
 
 public class CidadeDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 	private String nome;
-
+	
 	public CidadeDTO() {
-
 	}
 
-	public CidadeDTO(Integer id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
+	public CidadeDTO(Cidade obj) {
+		id = obj.getId();
+		nome = obj.getNome();
 	}
-
-	public CidadeDTO(Cidade cidade) {
-		super();
-		this.id = cidade.getId();
-		this.nome = cidade.getNome();
-	}
-
+	
 	public Integer getId() {
 		return id;
 	}

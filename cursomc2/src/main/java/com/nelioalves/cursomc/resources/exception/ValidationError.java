@@ -8,12 +8,8 @@ public class ValidationError extends StandardError {
 
 	private List<FieldMessage> errors = new ArrayList<>();
 
-	public ValidationError() {
-		super();
-	}
-
-	public ValidationError(Integer status, String error, String message, String path) {
-		super(status, error, message, path);
+	public ValidationError(Long timestamp, Integer status, String error, String message, String path) {
+		super(timestamp, status, error, message, path);
 	}
 
 	public List<FieldMessage> getErrors() {

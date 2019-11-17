@@ -18,27 +18,26 @@ import com.nelioalves.cursomc.services.CidadeService;
 import com.nelioalves.cursomc.services.EstadoService;
 
 @RestController
-@RequestMapping("/estados")
+@RequestMapping(value="/estados")
 public class EstadoResource {
-
+	
 	@Autowired
 	private EstadoService service;
+	
 	@Autowired
 	private CidadeService cidadeService;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<EstadoDTO>> findAll() {
 		List<Estado> list = service.findAll();
-		List<EstadoDTO> listDto = list.stream().map(est-> new EstadoDTO(est)).collect(Collectors.toList());
+		List<EstadoDTO> listDto = list.stream().map(obj -> new EstadoDTO(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	@RequestMapping(value = "/{estadoId}/cidades", method = RequestMethod.GET)
-	public ResponseEntity<List<CidadeDTO>> findCidades(@PathVariable Integer estadoId){
+	@RequestMapping(value="/{estadoId}/cidades", method=RequestMethod.GET)
+	public ResponseEntity<List<CidadeDTO>> findCidades(@PathVariable Integer estadoId) {
 		List<Cidade> list = cidadeService.findByEstado(estadoId);
-		List<CidadeDTO> listDto = list.stream().map(cid -> new CidadeDTO(cid)).collect(Collectors.toList());
+		List<CidadeDTO> listDto = list.stream().map(obj -> new CidadeDTO(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
-	
-	
 }
