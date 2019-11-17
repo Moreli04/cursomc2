@@ -19,39 +19,34 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 public class S3Service {
 
 	private Logger LOG = LoggerFactory.getLogger(S3Service.class);
+
 	@Autowired
-	private AmazonS3 s3Client;
+	private AmazonS3 s3client;
 
 	@Value("${s3.bucket}")
 	private String bucketName;
 
 	public URI uploadFile(MultipartFile multipartFile) {
-
 		try {
 			String fileName = multipartFile.getOriginalFilename();
-			InputStream is;
-
-			is = multipartFile.getInputStream();
+			InputStream is = multipartFile.getInputStream();
 			String contentType = multipartFile.getContentType();
 			return uploadFile(is, fileName, contentType);
 		} catch (IOException e) {
-			throw new RuntimeException("Erro DE IO " + e.getMessage());
+			throw new RuntimeException("Erro de IO: " + e.getMessage());
 		}
-
 	}
 
 	public URI uploadFile(InputStream is, String fileName, String contentType) {
 		try {
-			LOG.info("Iniciando Upload...");
 			ObjectMetadata meta = new ObjectMetadata();
 			meta.setContentType(contentType);
-			s3Client.putObject(bucketName, fileName, is, meta);
+			LOG.info("Iniciando upload");
+			s3client.putObject(bucketName, fileName, is, meta);
 			LOG.info("Upload finalizado");
-
-			return s3Client.getUrl(bucketName, fileName).toURI();
+			return s3client.getUrl(bucketName, fileName).toURI();
 		} catch (URISyntaxException e) {
 			throw new RuntimeException("Erro ao converter URL para URI");
 		}
-
 	}
 }

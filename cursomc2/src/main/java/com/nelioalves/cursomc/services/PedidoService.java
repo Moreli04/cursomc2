@@ -23,34 +23,34 @@ import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class PedidoService {
-
+	
 	@Autowired
 	private PedidoRepository repo;
-
+	
 	@Autowired
 	private BoletoService boletoService;
-
+	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
-
+	
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
-
+	
 	@Autowired
 	private ProdutoService produtoService;
-
+	
 	@Autowired
 	private ClienteService clienteService;
-
+	
 	@Autowired
 	private EmailService emailService;
-
+	
 	public Pedido find(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
-
+	
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
@@ -73,16 +73,14 @@ public class PedidoService {
 		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 	}
-
+	
 	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
-
 		UserSS user = UserService.authenticated();
 		if (user == null) {
 			throw new AuthorizationException("Acesso negado");
 		}
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Cliente cliente = clienteService.find(user.getId());
+		Cliente cliente =  clienteService.find(user.getId());
 		return repo.findByCliente(cliente, pageRequest);
 	}
-
 }
