@@ -14,7 +14,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.nelioalves.cursomc.services.exceptions.AuthorizationException;
 import com.nelioalves.cursomc.services.exceptions.DataIntegrityException;
-import com.nelioalves.cursomc.services.exceptions.FIleException;
+import com.nelioalves.cursomc.services.exceptions.FileException;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
@@ -51,8 +51,8 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
 	}
 	
-	@ExceptionHandler(FIleException.class)
-	public ResponseEntity<StandardError> file(FIleException e, HttpServletRequest request) {
+	@ExceptionHandler(FileException.class)
+	public ResponseEntity<StandardError> file(FileException e, HttpServletRequest request) {
 		
 		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
