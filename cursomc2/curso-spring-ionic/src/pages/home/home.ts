@@ -50,4 +50,8 @@ export class HomePage {
     this.menu.swipeEnable(true);
   }
 
+  signup(){
+    this.navCtrl.push('SignupPage');
+  }
+
 }
