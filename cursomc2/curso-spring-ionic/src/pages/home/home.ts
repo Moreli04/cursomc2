@@ -29,6 +29,15 @@ export class HomePage {
       error => {});
   }
 
+  ionViewDidEnter() {
+    this.auth.refreshToken()
+      .subscribe(response => {
+        this.auth.successFullLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+      error => {});  
+  }
+
   // evento de entrar na pagina
   ionViewWillEnter() {
     //desabilita o arraste do menu

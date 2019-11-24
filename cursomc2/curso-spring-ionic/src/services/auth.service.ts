@@ -31,6 +31,21 @@ export class AuthService {
             });
     }
 
+    refreshToken() {
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/auth/refresh_token`,
+            {},
+            /*
+                Especificando o response pois sera necessario obter informações do cabeçalho dele
+                O corpo da resposta do back estará vazio então é preciso  especificar o Response type como text para
+                que o angular nao tente fazer o parse do corpo para Json.
+            */
+            {
+                observe: 'response',
+                responseType: 'text'
+            });
+    }
+
     successFullLogin(authorizationValue:string){
         let tok = authorizationValue.substring(7);
         let user : LocalUser = {
