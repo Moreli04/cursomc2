@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CategoriaService } from '../../services/domain/Categoria.service';
+import { CategoriaService } from '../../services/domain/categoria.service';
 import { CategoriaDTO } from '../../models/Categoria.dto';
 import { API_CONFIG } from '../../config/api.config';
 
