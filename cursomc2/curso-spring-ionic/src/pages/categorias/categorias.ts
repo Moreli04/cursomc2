@@ -40,8 +40,6 @@ export class CategoriasPage {
         this.itens = response;
         console.log(this.itens);
       },
-      error => {
-        console.log(error);
-      });
+        error => {});
   }
 }
