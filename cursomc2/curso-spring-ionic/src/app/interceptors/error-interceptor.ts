@@ -10,18 +10,18 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(req)
         .catch((error, caught) => {
 
-             let errorObj = error;
-             if (errorObj.error) {
-                 errorObj = errorObj.error;
-             }
-             // se o objeto tiver o status é pq a msg ta em formato de json, caso nao esteja nos vamos converter
-             if (!errorObj.status) {
-                 errorObj = JSON.parse(errorObj);
-             }
+            let errorObj = error;
+            if (errorObj.error) {
+                errorObj = errorObj.error;
+            }
+            if (!errorObj.status) {
+                errorObj = JSON.parse(errorObj);
+            }
 
-             console.log("Erro detectado pelo interceptor:");
-             console.log(errorObj);
-             return Observable.throw(errorObj);
+            console.log("Erro detectado pelo interceptor:");
+            console.log(errorObj);
+
+            return Observable.throw(errorObj);
         }) as any;
     }
 }

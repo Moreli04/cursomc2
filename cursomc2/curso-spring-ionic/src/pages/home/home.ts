@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, MenuController } from 'ionic-angular';
 import { CredenciaisDTO } from '../../models/Credenciais.dto';
+import { AuthService } from '../../services/auth.service';
 
 @IonicPage()
 @Component({
@@ -9,17 +10,23 @@ import { CredenciaisDTO } from '../../models/Credenciais.dto';
 })
 export class HomePage {
 
-  creeds:CredenciaisDTO = {
-    email:"",
-    senha:" "
+  creeds: CredenciaisDTO = {
+    email: "",
+    senha: ""
   }
-  constructor(public navCtrl: NavController, public menu: MenuController) {
-
+  constructor(
+    public navCtrl: NavController,
+    public menu: MenuController,
+    public auth: AuthService) {
   }
 
   login() {
-    console.log(this.creeds);
-    this.navCtrl.setRoot('CategoriasPage');
+    this.auth.authenticate(this.creeds)
+      .subscribe(response => {
+        console.log(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+      error => {});
   }
 
   // evento de entrar na pagina
