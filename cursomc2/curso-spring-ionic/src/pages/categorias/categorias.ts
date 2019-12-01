@@ -19,7 +19,7 @@ import { API_CONFIG } from '../../config/api.config';
 export class CategoriasPage {
 
   bucketUrl: string = API_CONFIG.bucketBaseUrl;
-  itens: CategoriaDTO[];
+  items: CategoriaDTO[];
 
   constructor(
     public navCtrl: NavController,
@@ -37,13 +37,13 @@ export class CategoriasPage {
   ionViewDidLoad() {
     this.categoriaService.findAll()
       .subscribe(response => {
-        this.itens = response;
-        console.log(this.itens);
+        this.items = response;
       },
-        error => {});
+      error => {});
   }
 
-  showProdutos(){
-    this.navCtrl.push('ProdutosPage');
+  showProdutos(categoria_id: string) {
+    //importante, os dois parametros dentro de chaves corresponder a nome do parametro e valor, nao precisam ter os mesmos nomes
+    this.navCtrl.push('ProdutosPage', { categoria_id: categoria_id });
   }
 }
